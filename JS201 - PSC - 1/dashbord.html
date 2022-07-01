@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="navbar">
+ 
+    </div>
+    <div id="cont">
+    
+    </div>
+</body>
+</html>
+<script>
+  
+  append()
+    function append(){
+    let data=JSON.parse(localStorage.getItem("students"))||[]
+  let cont=document.getElementById("cont")
+  cont.innerHTML=null
+  data.forEach(function(el,index){
+    let div=document.createElement("div")
+   let img=document.createElement("img")
+   img.src=el.image;
+   let na=document.createElement("h1")
+   na.innerText=el.name;
+   let btn=document.createElement("button")
+   btn.innerText="Remove"
+   btn.addEventListener('click',function(index){
+    remove(index)
+   })
+   div.append(img,na,btn)
+//   console.log(img,p)
+  cont.append(div)
+   });
+ 
+}
+append() 
+function remove(index){
+    let data=JSON.parse(localStorage.getItem("students"))||[]
+    let newData=data.filter(function(el,i){
+      // console.log("ddvd")
+        if(i===index){
+        let trash=JSON.parse(localStorage.getItem("trash"))||[]
+        trash.push(el)
+        localStorage.setItem("trash",JSON.stringify(trash))    
+        }else{
+            return i !==index
+        }
+  })
+    localStorage.setItem("students",JSON.stringify(newData))
+    append()
+   //console.log(newData)
+}
+</script>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #navbar{
+            display: flex;
+            margin-left: 20px;
+        }
+        #navbar>div{
+            margin-left: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar">
+  
+    </div>
+    <button>
+        <a href="dashbord.html">Dashboard</a>
+    </button>
+    <h1>Add STudent Data</h1>
+    <form id="studen_data" onsubmit="storeData(event)">
+<input type="text" id="name" placeholder="Name"><br>
+<input type="text" id="course" placeholder="course"><br>
+<input type="number" id="unit" placeholder="Unit"><br>
+<input type="text" id="image" placeholder="image"><br>
+<input type="number" id="batch" placeholder="Ft-web Batch No."><br>
+<input type="submit">
+    </form>
+</body>
+</html>
+<script>
+    //document.querySelector("form").addEventListener("submit",storeData)
+    function Student(n,c,u,i,b){
+        this.name=n;
+        this.course=c;
+        this.unit=u;
+        this.image=i;
+        this.batch=`Ft-web${b}`;
+        
+    }
+    //let stuLS=
+    function storeData(e){
+    e.preventDefault()
+    //console.log("puja")
+   let form = document.getElementById("studen_data");
+   let name= form.name.value;
+   let course= form.course.value;
+   let unit = form.unit.value;
+   let image = form.image.value;
+   let batch = form.batch.value;
+ //console.log(name,course,unit,image,batch)
+  let s1= new Student(name,course,unit,image,batch)
+  
+  //console.log(s1)
+  let data=JSON.parse(localStorage.getItem("students"))||[]
+  data.push(s1)
+  localStorage.setItem("students",JSON.stringify(data))
+  //console.log(s1)
+}
+function cal(){
+    //first tak a data from ls
+    let data=JSON.parse(localStorage.getItem("students"))||[]   
+    //let arr=[];
+    let obj={};
+    for(let i=0; i<data.length; i++){
+    
+      if(obj[data[i].batch]==undefined){
+        obj[data[i].batch]=1;
+   }
+    else{
+        obj[data[i].batch]++; 
+      }
+    }
+    console.log(data)
+}
+ cal()
+
+ function navbar(){
+    let data=JSON.parse(localStorage.getItem("students"))||[]
+    let  nav=document.getElementById("navbar")
+     
+    data.forEach(function(element){
+    let div=document.createElement("div")
+    div.style.backgroundColor="red"
+    let p=document.createElement("p");
+    p.innerText=element.batch;
+  
+    div.append(p)
+    nav.append(div) 
+    // document.querySelector("navbar").append(div)
+    });
+}
+navbar()
+
+
+</script>
